@@ -14,8 +14,6 @@ const addItem = (name: string, quantity: number, price: number): Item[] => {
   return inventory;
 };
 
-// 4. Implement the updateQuantity function (using an arrow function)
-//    Updates the quantity of an existing item by its ID.
 const updateQuantity = (itemId: number, newQuantity: number): boolean => {
   for (const curItem of inventory) {
     if (curItem.id == itemId) {
@@ -24,18 +22,15 @@ const updateQuantity = (itemId: number, newQuantity: number): boolean => {
     } 
   }
   console.log(`Item [${itemId}] not found.`);
-  return false; // Placeholder return
+  return false;
 };
 
-// 5. Implement the calculateTotalValue function (using an arrow function)
-//    Calculates the total monetary value of all items in the inventory.
 const calculateTotalValue = (): number => {
-  // [Your code here]
-  // - Iterate through the 'inventory' array
-  // - For each item, multiply its 'quantity' by its 'price'
-  // - Sum up all these values to get the total
-  // - Return the total value
-  return 0; // Placeholder return
+  var totalValue = 0;
+  for (const curItem of inventory) {
+    totalValue += curItem.quantity * curItem.price;
+  }
+  return totalValue;
 };
 
 const listItems = (): Item[] => {
