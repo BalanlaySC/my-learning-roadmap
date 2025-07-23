@@ -15,27 +15,24 @@ const addItem = (name: string, quantity: number, price: number): Item[] => {
 };
 
 const updateQuantity = (itemId: number, newQuantity: number): boolean => {
-  for (const curItem of inventory) {
-    if (curItem.id == itemId) {
-      curItem.quantity = newQuantity;
-      return true;
-    } 
+  const index = inventory.findIndex(item => item.id === itemId);
+  if (index > -1) {
+    inventory = inventory.map(item =>
+      item.id === itemId ? { ...item, quantity: newQuantity } : item
+    );
+    return true;
   }
   console.log(`Item [${itemId}] not found.`);
   return false;
 };
 
 const calculateTotalValue = (): number => {
-  var totalValue = 0;
-  for (const curItem of inventory) {
-    totalValue += curItem.quantity * curItem.price;
-  }
+  const totalValue = inventory.reduce((sum, item) => sum + (item.quantity * item.price), 0);
   return totalValue;
 };
 
 const listItems = (): Item[] => {
-  var tempList: Item[] = inventory.slice(0, inventory.length);
-  return [...tempList];
+  return [...inventory];
 };
 
 // --- Test Cases (You will add your test calls here) ---
