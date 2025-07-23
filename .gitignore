@@ -1,0 +1,21 @@
+# Operating System Files
+# .DS_Store # macOS
+# Thumbs.db # Windows
+
+# Node.js / JavaScript / TypeScript related
+# node_modules/
+# npm-debug.log*
+# yarn-debug.log*
+# yarn-error.log*
+# .parcel-cache/ # For Parcel bundler
+# dist/         # Common output directory for compiled code (like from Vite/tsc)
+# build/        # Another common build output directory
+
+# VS Code specific files
+# .vscode/ VS Code workspace settings, extensions recommendations etc.
+# Specific VS Code workspace file
+Road to Full-stack.code-workspace
+
+# Temporary files
+# *.tmp
+# *.log
