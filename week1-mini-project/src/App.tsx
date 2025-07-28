@@ -12,11 +12,11 @@ import Footer from './components/Footer';
 function App() {
   return (
     <div>
-      {/* <Header />
+      <Header title="Sam's Portfolio" />
       <main>
-        <AboutMe />
+        <ProjectsSection />
       </main>
-      <Footer /> */}
+      {/* <Footer title="Copyright © 2025 Sam. All rights reserved." /> */}
     </div>
   )
 }
