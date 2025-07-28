@@ -1,13 +1,5 @@
-export interface Project {
-  id: number;
-  title: string;
-  description: string
-  imageUrl: string;
-  technologies: string[];
-  link: string;
-}
+import { type Project } from '../data/types';
 
-// 2. Create an array of sample project data conforming to the Project interface
 const projects: Project[] = [
   {
     id: 1,

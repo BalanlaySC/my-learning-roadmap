@@ -1,25 +1,30 @@
 import React from 'react';
 
 interface AboutMeProps {
+  name: string;
   title: string;
+  imageUrl: string;
+  bio: string;
 }
 
-// 2. Define your functional component
-//    Use React.FC<ComponentNameProps> for type safety if you have props.
-//    If no props, you can use React.FC or just leave off the type annotation.
-const AboutMe: React.FC<AboutMeProps> = () => {
-  // You can declare state variables or other React Hooks here if needed:
-  // const [someState, setSomeState] = useState(false);
-
+const AboutMe: React.FC<AboutMeProps> = ({ name, title, imageUrl, bio }) => {
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md">
-      {/* Example content - replace with your actual component content */}
-      <h2 className="text-2xl font-semibold text-gray-800">
-        This is the ComponentName Component
-      </h2>
-      <p className="mt-2 text-gray-600">
-        You can put your content and Tailwind CSS classes here.
-      </p>
+    <div className="bg-gray-300 rounded-lg shadow-md px-4 py-8 mx-4 my-8 text-center">
+    {/* Profile Image */}
+    <img
+        src={imageUrl}
+        alt={name}
+        className="w-24 h-24 rounded-full mx-auto mb-4 object-cover" // Tailwind classes for image
+    />
+
+    {/* Name and Title */}
+    <h2 className="text-xl font-bold text-gray-800 mb-1">{name}</h2>
+    <p className="text-gray-600 text-sm mb-4">{title}</p>
+
+    {/* Bio Section */}
+    <p className="text-gray-700 text-sm mb-2">
+        {bio} {/* Display the truncated or full bio */}
+    </p>
     </div>
   );
 };
