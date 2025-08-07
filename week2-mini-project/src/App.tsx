@@ -10,12 +10,12 @@ function App() {
   return (
     <div>
       <Header />
-      <Routes>
-        <Route path="/" element={<GameList />}/>
-        {/* <main className="container mx-auto p-4">
-        </main> */}
-        <Route path="/games/:id" element={<GameDetailPage />}/>
-      </Routes>
+      <main className="container mx-auto p-4">
+        <Routes>
+          <Route path="/" element={<GameList />}/>
+          <Route path="/games/:id" element={<GameDetailPage />}/>
+        </Routes>
+      </main>
     </div>
   )
 }

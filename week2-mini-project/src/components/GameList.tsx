@@ -21,7 +21,7 @@ const GameList: React.FC = () => {
         .finally(() => {
           setLoading(false);
         });
-    }, 800);
+    }, 650);
 
     return () => clearTimeout(timer);
   }, []);
@@ -53,16 +53,6 @@ const GameList: React.FC = () => {
     <div className="p-4 m-4 bg-white rounded-lg shadow-md">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold mb-6">Browse Games</h1>
-        {/* <div className="flex items-center space-x-2"> 
-          <input
-            id='prodSearchBar'
-            type="text"
-            placeholder="Search products..."
-            value={searchQuery}
-            onChange={handleSearch}
-            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div> */}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {curGames.map((myGame) => (

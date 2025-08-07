@@ -1,4 +1,4 @@
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -6,7 +6,9 @@ const Header = () => {
       <nav className="flex justify-between items-center container mx-auto">
         <ul className="flex space-x-4">
           <li>
-            Game Reviews
+            <Link to="/" className="hover:underline">
+              Game List
+            </Link>
           </li>
         </ul>
       </nav>
