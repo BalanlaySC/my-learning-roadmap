@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import games from '../data/games';
+import ReviewList from './ReviewList';
 
 // interface GameDetailProps {
 //   game: Game;
@@ -49,7 +50,7 @@ const GameDetailPage: React.FC = () => {
             {averageRating ? (
               <>
                 <h2 className="text-slate-300 text-lg font-bold">Average Rating</h2>
-                <p className="text-4xl font-bold text-white my-2">{averageRating}</p>
+                <p className="text-4xl font-bold text-yellow-400 my-2">{averageRating}</p>
                 <p className="text-slate-400 text-sm">
                   Based on {game.reviews.length} review(s)
                 </p>
@@ -63,14 +64,10 @@ const GameDetailPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <ReviewList reviews={game.reviews} />
     </div>
-    // <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm mx-auto text-center">
-    //   <h2 className="text-xl font-bold text-gray-800 mb-1">{game.title}</h2>
-    //   <p className="text-gray-600 text-sm mb-4">{game.releaseYear}</p>
-    //   <p className="text-gray-600 text-sm mb-4">{game.developer}</p>
-    //   <p className="text-gray-600 text-sm mb-4">{game.genre}</p>
-    //   <p className="text-gray-600 text-sm mb-4">{game.description}</p>
-    // </div>
+    // TODO: Apply consistency in UI, based frorm GameDetailPage
   );
 };
 
