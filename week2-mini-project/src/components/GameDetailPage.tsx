@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import games from '../data/games';
 import ReviewList from './ReviewList';
+import ReviewForm from '../components/ReviewForm';
 
 // interface GameDetailProps {
 //   game: Game;
@@ -10,9 +11,7 @@ import ReviewList from './ReviewList';
 
 const GameDetailPage: React.FC = () => {
   const { id } = useParams();
-
   const game = games.find(g => g.id === id);
-  
   const averageRating =
     game && game.reviews && game.reviews.length > 0
       ? (
@@ -20,6 +19,20 @@ const GameDetailPage: React.FC = () => {
           game.reviews.length
         ).toFixed(1) // Keep one decimal place
       : null;
+
+  const [isFormVisible, setFormVisible] = useState(false);
+  const reviewInputRef = useRef<HTMLInputElement>(null);
+
+  const handleAddReviewClick = () => {
+    setFormVisible(true);
+  };
+
+  useEffect(() => {
+    if (isFormVisible && reviewInputRef.current) {
+      reviewInputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      reviewInputRef.current.focus();
+    }
+  }, [isFormVisible]); // This effect runs when isFormVisible changes
 
   if (!game) {
     return <div>Game not found!</div>;
@@ -58,7 +71,10 @@ const GameDetailPage: React.FC = () => {
             ) : (
               <p className="text-slate-300">No reviews yet.</p>
             )}
-            <button className="bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg mt-4 w-full hover:bg-cyan-600 transition-colors">
+            <button
+              onClick={handleAddReviewClick}
+              className="bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg mt-4 w-full hover:bg-cyan-600 transition-colors"
+            >
               Add Your Review
             </button>
           </div>
@@ -66,6 +82,9 @@ const GameDetailPage: React.FC = () => {
       </section>
 
       <ReviewList reviews={game.reviews} />
+      <div className="mt-8">
+        {isFormVisible && <ReviewForm ref={reviewInputRef} />}
+      </div>
     </div>
     // TODO: Apply consistency in UI, based frorm GameDetailPage
   );
