@@ -21,7 +21,7 @@ const GameList: React.FC = () => {
         .finally(() => {
           setLoading(false);
         });
-    }, 650);
+    }, 350);
 
     return () => clearTimeout(timer);
   }, []);

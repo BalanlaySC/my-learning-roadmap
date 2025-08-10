@@ -6,18 +6,17 @@ import ReviewList from './ReviewList';
 import ReviewForm from '../components/ReviewForm';
 import type { Review } from '../data/types';
 
-// interface GameDetailProps {
-//   game: Game;
-// }
-
 const GameDetailPage: React.FC = () => {
   const { id } = useParams();
-  const game = games.find(g => g.id === id);
   
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [game, setGame] = useState(games.find(g => g.id === id));
   const [isFormVisible, setFormVisible] = useState(false);
-  const [userName, setUserName] = useState('');
-  const [rating, setRating] = useState(5);
-  const [reviewText, setReviewText] = useState('');
+  const [reviewObj, setReviewObj] = useState({
+    user: '',
+    rating: 5,
+    comment: ''
+  });
   const [reviews, setReviews] = useState<Review[]>(game?.reviews || []);
 
   const handleAddReviewClick = () => {
@@ -26,12 +25,23 @@ const GameDetailPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newReview = { user: userName, rating, comment: reviewText };
-    setReviews([...reviews, newReview]);
+    setReviews(prevReviews => [...prevReviews, reviewObj]);
     // Reset
-    setUserName('');
-    setRating(5);
-    setReviewText('');
+    setReviewObj(prevReviews => ({
+      ...prevReviews,
+      user: '',
+      rating: 5,
+      comment: ''
+    }));
+    setFormVisible(false);
+  };
+
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setReviewObj(prevReviews => ({
+      ...prevReviews,
+      [id]: id === 'rating' ? Number(value) : value,
+    }));
   };
   
   const averageRating =
@@ -41,12 +51,6 @@ const GameDetailPage: React.FC = () => {
           reviews.length
         ).toFixed(1) // Keep one decimal place
       : null;
-  // useEffect(() => {
-  //   if (isFormVisible && reviewInputRef.current) {
-  //     reviewInputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  //     reviewInputRef.current.focus();
-  //   }
-  // }, [isFormVisible]); // This effect runs when isFormVisible changes
 
   if (!game) {
     return <div>Game not found!</div>;
@@ -95,17 +99,12 @@ const GameDetailPage: React.FC = () => {
       <ReviewList reviews={reviews} />
       <div className="mt-8">
         {isFormVisible && <ReviewForm 
-          userName={userName}
-          setUserName={setUserName}
-          rating={rating}
-          setRating={setRating}
-          reviewText={reviewText}
-          setReviewText={setReviewText}
+          reviewObj={reviewObj}
+          onFormChange={handleFormChange}
           onSubmit={handleSubmit}
         />}
       </div>
     </div>
-    // TODO: Apply consistency in UI, based frorm GameDetailPage
   );
 };
 
