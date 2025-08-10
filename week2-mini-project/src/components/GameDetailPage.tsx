@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import games from '../data/games';
 import ReviewList from './ReviewList';
 import ReviewForm from '../components/ReviewForm';
+import type { Review } from '../data/types';
 
 // interface GameDetailProps {
 //   game: Game;
@@ -12,33 +13,43 @@ import ReviewForm from '../components/ReviewForm';
 const GameDetailPage: React.FC = () => {
   const { id } = useParams();
   const game = games.find(g => g.id === id);
-  const averageRating =
-    game && game.reviews && game.reviews.length > 0
-      ? (
-          game.reviews.reduce((acc, review) => acc + review.rating, 0) /
-          game.reviews.length
-        ).toFixed(1) // Keep one decimal place
-      : null;
-
+  
   const [isFormVisible, setFormVisible] = useState(false);
-  const reviewInputRef = useRef<HTMLInputElement>(null);
+  const [userName, setUserName] = useState('');
+  const [rating, setRating] = useState(5);
+  const [reviewText, setReviewText] = useState('');
+  const [reviews, setReviews] = useState<Review[]>(game?.reviews || []);
 
   const handleAddReviewClick = () => {
     setFormVisible(true);
   };
 
-  useEffect(() => {
-    if (isFormVisible && reviewInputRef.current) {
-      reviewInputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      reviewInputRef.current.focus();
-    }
-  }, [isFormVisible]); // This effect runs when isFormVisible changes
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newReview = { user: userName, rating, comment: reviewText };
+    setReviews([...reviews, newReview]);
+    // Reset
+    setUserName('');
+    setRating(5);
+    setReviewText('');
+  };
+  
+  const averageRating =
+    game && reviews && reviews.length > 0
+      ? (
+          reviews.reduce((acc, review) => acc + review.rating, 0) /
+          reviews.length
+        ).toFixed(1) // Keep one decimal place
+      : null;
+  // useEffect(() => {
+  //   if (isFormVisible && reviewInputRef.current) {
+  //     reviewInputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  //     reviewInputRef.current.focus();
+  //   }
+  // }, [isFormVisible]); // This effect runs when isFormVisible changes
 
   if (!game) {
     return <div>Game not found!</div>;
-  }
-  if (!game) {
-    return <div>Game not found!</div>
   }
 
   return (
@@ -65,7 +76,7 @@ const GameDetailPage: React.FC = () => {
                 <h2 className="text-slate-300 text-lg font-bold">Average Rating</h2>
                 <p className="text-4xl font-bold text-yellow-400 my-2">{averageRating}</p>
                 <p className="text-slate-400 text-sm">
-                  Based on {game.reviews.length} review(s)
+                  Based on {reviews.length} review(s)
                 </p>
               </>
             ) : (
@@ -81,9 +92,17 @@ const GameDetailPage: React.FC = () => {
         </div>
       </section>
 
-      <ReviewList reviews={game.reviews} />
+      <ReviewList reviews={reviews} />
       <div className="mt-8">
-        {isFormVisible && <ReviewForm ref={reviewInputRef} />}
+        {isFormVisible && <ReviewForm 
+          userName={userName}
+          setUserName={setUserName}
+          rating={rating}
+          setRating={setRating}
+          reviewText={reviewText}
+          setReviewText={setReviewText}
+          onSubmit={handleSubmit}
+        />}
       </div>
     </div>
     // TODO: Apply consistency in UI, based frorm GameDetailPage
