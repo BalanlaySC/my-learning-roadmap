@@ -50,7 +50,7 @@ const GameList: React.FC = () => {
 
 
   return (
-    <div className="p-4 m-4 bg-white rounded-lg shadow-md">
+    <>
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold mb-6">Browse Games</h1>
       </div>
@@ -59,7 +59,7 @@ const GameList: React.FC = () => {
             <GameCard key={myGame.id} game={myGame} />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

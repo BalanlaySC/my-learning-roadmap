@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Review } from '../data/types';
+import Card from './Card';
 
 interface ReviewFormProps {
   reviewObj: Review;
@@ -10,7 +11,7 @@ interface ReviewFormProps {
 const ReviewForm = React.forwardRef<HTMLInputElement, ReviewFormProps>(
   ({ reviewObj, onFormChange, onSubmit }, ref) => {
     return (
-      <div className="bg-slate-800 p-6 rounded-lg mt-8">
+      <Card variant="dark" className="mt-8">
         <h3 className="text-2xl font-bold text-white mb-4">Submit Your Review</h3>
         <form onSubmit={onSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -55,7 +56,7 @@ const ReviewForm = React.forwardRef<HTMLInputElement, ReviewFormProps>(
             Submit
           </button>
         </form>
-      </div>
+      </Card>
     );
   }
 );

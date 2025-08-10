@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import games from '../data/games';
 import ReviewList from './ReviewList';
 import ReviewForm from '../components/ReviewForm';
+import Card from './Card';
+
 import type { Review } from '../data/types';
 
 const GameDetailPage: React.FC = () => {
@@ -57,8 +59,8 @@ const GameDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="p-4 md:p-8">
-      <section className="bg-slate-800 rounded-lg shadow-xl p-6 md:p-8">
+    <>
+      <Card variant="dark" className="p-6 md:p-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Left Column: Title and Details */}
           <div className="md:col-span-2">
@@ -94,7 +96,7 @@ const GameDetailPage: React.FC = () => {
             </button>
           </div>
         </div>
-      </section>
+      </Card>
 
       <ReviewList reviews={reviews} />
       <div className="mt-8">
@@ -104,7 +106,7 @@ const GameDetailPage: React.FC = () => {
           onSubmit={handleSubmit}
         />}
       </div>
-    </div>
+    </>
   );
 };
 
